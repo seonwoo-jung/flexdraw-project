@@ -94,11 +94,7 @@ public class PropertyEditorPanel extends JPanel {
 
 	private static Color parseColor(String s) {
 		try {
-			if (s.startsWith("#")) {
-				return Color.decode(s);
-			}
-
-			if (s.startsWith("0x") || s.startsWith("0X")) {
+			if (s.startsWith("#") || s.startsWith("0x") || s.startsWith("0X")) {
 				return Color.decode(s);
 			}
 
@@ -110,8 +106,10 @@ public class PropertyEditorPanel extends JPanel {
 					Integer.parseInt(p[2].trim())
 				);
 			}
+
 			return Color.decode(s);
 		} catch (Exception ex) {
+			System.err.println("[WARN] Invalid color string: '" + s + "'. Using default gray.");
 			return Color.GRAY;
 		}
 	}

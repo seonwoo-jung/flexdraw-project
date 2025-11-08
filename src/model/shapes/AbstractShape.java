@@ -8,7 +8,8 @@ import java.util.Map;
 
 public abstract class AbstractShape {
 
-	protected final Map<String, Object> props = new LinkedHashMap<>(); // preserve insertion order
+	// preserve insertion order
+	protected final Map<String, Object> props = new LinkedHashMap<>();
 
 	public AbstractShape() {
 		// Position-related properties
@@ -48,8 +49,8 @@ public abstract class AbstractShape {
 		if (v instanceof String s) {
 			try {
 				return Double.parseDouble(s.trim());
-			} catch (Exception ignore) {
-
+			} catch (Exception e) {
+				System.err.println("[WARN] Failed to parse double for key: " + key + " value=" + s);
 			}
 		}
 		return 0.0;
@@ -62,8 +63,8 @@ public abstract class AbstractShape {
 		if (v instanceof String s) {
 			try {
 				return Integer.parseInt(s.trim());
-			} catch (Exception ignore) {
-
+			} catch (Exception e) {
+	            System.err.println("[WARN] Failed to parse int for key: " + key + " value=" + s);
 			}
 		}
 		return 0;
@@ -76,8 +77,8 @@ public abstract class AbstractShape {
 		if (v instanceof String s) {
 			try {
 				return Color.decode(s.trim());
-			} catch (Exception ignore) {
-
+			} catch (Exception e) {
+				System.err.println("[WARN] Failed to decode color for key: " + key + " value=" + s);
 			}
 		}
 		return Color.GRAY;
