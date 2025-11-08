@@ -18,9 +18,6 @@ public class PropertyEditorPanel extends JPanel {
 	private final List<FieldRow> rows = new ArrayList<>();
 	private final JButton updateBtn = new JButton("Update");
 
-	private record FieldRow(String key, JComponent input, Class<?> type) {
-	}
-
 	private final Consumer<Map<String, Object>> onApply;
 
 	public PropertyEditorPanel(Consumer<Map<String, Object>> onApply) {
@@ -151,5 +148,17 @@ public class PropertyEditorPanel extends JPanel {
 			newValues.put(r.key, parsed);
 		}
 		onApply.accept(newValues);
+	}
+
+	private static class FieldRow {
+		private String key;
+		private JComponent input;
+		private Class<?> type;
+
+		public FieldRow(String key, JComponent input, Class<?> type) {
+			this.key = key;
+			this.input = input;
+			this.type = type;
+		}
 	}
 }
