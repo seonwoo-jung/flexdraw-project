@@ -8,12 +8,16 @@ import java.awt.geom.Rectangle2D;
 public class LineShape extends AbstractShape {
 
 	public LineShape() {
+		// Remove unused properties for a line (no area, no fill)
 		props.remove("width");
 		props.remove("height");
 		props.remove("fill-color");
 
+	 	// Define endpoint coordinates
 		props.put("x2", 0.0);
 		props.put("y2", 0.0);
+
+		// Default name for this shape
 		props.put("name", "Line");
 	}
 
@@ -24,14 +28,20 @@ public class LineShape extends AbstractShape {
 
 	@Override
 	public void draw(Graphics2D g2, boolean selected) {
+		// Clone graphics context to avoid affecting the original
 		g2 = (Graphics2D)g2.create();
+
+		// Apply stroke and color before drawing
 		g2.setStroke(buildStroke());
 		g2.setColor(getColor("stroke-color"));
 
+		// Draw the main line
 		Line2D ln = getLine();
 		g2.draw(ln);
 
+		// If the line is selected, draw small handles at both endpoints
 		if (selected) {
+			// Draw selection handles at both endpoints
 			g2.setColor(new Color(0, 120, 215));
 			g2.fill(new Rectangle2D.Double(ln.getX1() - 3, ln.getY1() - 3, 6, 6));
 			g2.fill(new Rectangle2D.Double(ln.getX2() - 3, ln.getY2() - 3, 6, 6));
@@ -40,8 +50,16 @@ public class LineShape extends AbstractShape {
 		g2.dispose();
 	}
 
+	/**
+     * Builds a Line2D object based on the stored endpoint properties.
+     */
 	private Line2D getLine() {
-		return new Line2D.Double(getDouble("x"), getDouble("y"), getDouble("x2"), getDouble("y2"));
+		return new Line2D.Double(
+			getDouble("x"),
+			getDouble("y"),
+			getDouble("x2"),
+			getDouble("y2")
+		);
 	}
 
 	@Override

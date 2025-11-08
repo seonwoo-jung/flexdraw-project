@@ -94,17 +94,21 @@ public class PropertyEditorPanel extends JPanel {
 
 	private static Color parseColor(String s) {
 		try {
-			if (s.startsWith("#"))
+			if (s.startsWith("#")) {
 				return Color.decode(s);
-			if (s.startsWith("0x") || s.startsWith("0X"))
+			}
+
+			if (s.startsWith("0x") || s.startsWith("0X")) {
 				return Color.decode(s);
-			// allow "r,g,b"
+			}
+
 			if (s.contains(",")) {
 				String[] p = s.split(",");
 				return new Color(
 					Integer.parseInt(p[0].trim()),
 					Integer.parseInt(p[1].trim()),
-					Integer.parseInt(p[2].trim()));
+					Integer.parseInt(p[2].trim())
+				);
 			}
 			return Color.decode(s);
 		} catch (Exception ex) {
@@ -113,9 +117,12 @@ public class PropertyEditorPanel extends JPanel {
 	}
 
 	private void applyChanges() {
-		if (boundShape == null)
+		if (boundShape == null) {
 			return;
+		}
+
 		Map<String, Object> newValues = new LinkedHashMap<>();
+
 		for (FieldRow r : rows) {
 			Object parsed;
 			if (r.input instanceof JButton b && r.type == Color.class) {

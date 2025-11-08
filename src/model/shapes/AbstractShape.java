@@ -11,14 +11,21 @@ public abstract class AbstractShape {
 	protected final Map<String, Object> props = new LinkedHashMap<>(); // preserve insertion order
 
 	public AbstractShape() {
+		// Position-related properties
 		props.putIfAbsent("x", 0.0);
 		props.putIfAbsent("y", 0.0);
+
+		// Size-related properties
 		props.putIfAbsent("width", 0.0);
 		props.putIfAbsent("height", 0.0);
+
+		// Style and appearance
 		props.putIfAbsent("fill-color", Color.LIGHT_GRAY);
 		props.putIfAbsent("stroke-color", Color.DARK_GRAY);
 		props.putIfAbsent("stroke-width", 2.0);
 		props.putIfAbsent("rotation-angle", 0.0);
+
+	    // Identifier (default shape name)
 		props.putIfAbsent("name", getDefaultName());
 	}
 

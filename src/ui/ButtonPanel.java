@@ -21,16 +21,20 @@ public class ButtonPanel extends JPanel {
 
 		Map<String, JButton> btns = state.buttons();
 
+		// --- Tool buttons ---
 		JButton selectBtn = new JButton("Select");
 		JButton rectBtn = new JButton("Rect");
 		JButton ellBtn = new JButton("Ellipse");
 		JButton lineBtn = new JButton("Line");
+
+		// --- Command buttons ---
 		JButton undoBtn = new JButton("Undo");
 		JButton redoBtn = new JButton("Redo");
 		JButton delBtn = new JButton("Delete");
 		JButton frontBtn = new JButton("Front");
 		JButton backBtn = new JButton("Back");
 
+		// Register all buttons into state for potential global access
 		btns.put("tool-select", selectBtn);
 		btns.put("tool-rect", rectBtn);
 		btns.put("tool-ellipse", ellBtn);
@@ -41,10 +45,13 @@ public class ButtonPanel extends JPanel {
 		btns.put("cmd-front", frontBtn);
 		btns.put("cmd-back", backBtn);
 
+		// --- Tool selection listeners ---
 		selectBtn.addActionListener(e -> state.setTool(Tool.SELECT));
 		rectBtn.addActionListener(e -> state.setTool(Tool.RECT));
 		ellBtn.addActionListener(e -> state.setTool(Tool.ELLIPSE));
 		lineBtn.addActionListener(e -> state.setTool(Tool.LINE));
+
+		// --- Undo / Redo actions ---
 		undoBtn.addActionListener(e -> {
 			history.undo();
 			canvas.repaint();
@@ -55,6 +62,8 @@ public class ButtonPanel extends JPanel {
 			canvas.repaint();
 			refreshProps.run();
 		});
+
+		// --- Delete selected shape ---
 		delBtn.addActionListener(e -> {
 			AbstractShape sel = state.getSelection();
 			if (sel != null) {
@@ -64,6 +73,8 @@ public class ButtonPanel extends JPanel {
 				refreshProps.run();
 			}
 		});
+
+		// --- Reorder shape (bring to front / send to back) ---
 		frontBtn.addActionListener(e -> {
 			if (state.getSelection() != null) {
 				history.run(new ReorderCommand(store, state.getSelection(), true));
@@ -77,6 +88,7 @@ public class ButtonPanel extends JPanel {
 			}
 		});
 
+		// Add all buttons to the panel (display order)
 		add(selectBtn);
 		add(rectBtn);
 		add(ellBtn);
