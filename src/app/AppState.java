@@ -8,6 +8,7 @@ import javax.swing.*;
 import model.shapes.AbstractShape;
 
 public class AppState {
+
 	private Tool currentTool = Tool.SELECT;
 	private AbstractShape selection;
 	private final Map<String, JButton> buttonMap = new LinkedHashMap<>();
@@ -31,5 +32,4 @@ public class AppState {
 	public Map<String, JButton> buttons() {
 		return buttonMap;
 	}
-
 }

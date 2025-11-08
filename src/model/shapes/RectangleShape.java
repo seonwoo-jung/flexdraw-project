@@ -20,8 +20,11 @@ public class RectangleShape extends AbstractShape {
 		g2.fill(s);
 		g2.setColor(getColor("stroke-color"));
 		g2.draw(s);
-		if (selected)
+
+		if (selected) {
 			drawSelection(g2, s);
+		}
+
 		g2.dispose();
 	}
 
@@ -47,5 +50,4 @@ public class RectangleShape extends AbstractShape {
 		AffineTransform at = buildTransform();
 		return at.createTransformedShape(rect);
 	}
-
 }

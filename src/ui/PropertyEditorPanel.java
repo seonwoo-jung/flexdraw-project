@@ -3,6 +3,7 @@ package ui;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -12,8 +13,9 @@ import javax.swing.border.EmptyBorder;
 import model.shapes.AbstractShape;
 
 public class PropertyEditorPanel extends JPanel {
+
 	private AbstractShape boundShape;
-	private final java.util.List<FieldRow> rows = new ArrayList<>();
+	private final List<FieldRow> rows = new ArrayList<>();
 	private final JButton updateBtn = new JButton("Update");
 
 	private record FieldRow(String key, JComponent input, Class<?> type) {

@@ -9,15 +9,16 @@ import app.AppState;
 import app.Tool;
 import command.RemoveShapeCommand;
 import command.ReorderCommand;
-import model.History;
-import model.ShapeStore;
+import model.core.History;
+import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 
 public class ButtonPanel extends JPanel {
+
 	public ButtonPanel(AppState state, History history, DrawingCanvas canvas, ShapeStore store, Runnable refreshProps) {
+
 		setLayout(new FlowLayout(FlowLayout.LEFT, 6, 6));
 
-		// app.Tool buttons stored in a HashMap
 		Map<String, JButton> btns = state.buttons();
 
 		JButton selectBtn = new JButton("Select");

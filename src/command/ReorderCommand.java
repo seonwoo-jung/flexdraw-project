@@ -1,6 +1,6 @@
 package command;
 
-import model.ShapeStore;
+import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 
 public class ReorderCommand implements Command {
@@ -18,10 +18,11 @@ public class ReorderCommand implements Command {
 	@Override
 	public void execute() {
 		oldIndex = store.indexOf(shape);
-		if (toFront)
+		if (toFront) {
 			store.bringToFront(shape);
-		else
+		} else {
 			store.sendToBack(shape);
+		}
 	}
 
 	@Override

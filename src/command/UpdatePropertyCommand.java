@@ -3,6 +3,7 @@ package command;
 import model.shapes.AbstractShape;
 
 public class UpdatePropertyCommand implements Command {
+
 	private final AbstractShape shape;
 	private final String key;
 	private final Object newValue;

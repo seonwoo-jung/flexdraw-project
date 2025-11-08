@@ -1,9 +1,10 @@
 package command;
 
-import model.ShapeStore;
+import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 
 public class RemoveShapeCommand implements Command {
+
 	private final ShapeStore store;
 	private final AbstractShape shape;
 	private int oldIndex = -1;
@@ -21,8 +22,9 @@ public class RemoveShapeCommand implements Command {
 
 	@Override
 	public void undo() {
-		if (oldIndex < 0)
+		if (oldIndex < 0) {
 			oldIndex = 0;
+		}
 		store.insertAt(shape, oldIndex);
 	}
 

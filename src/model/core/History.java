@@ -1,4 +1,4 @@
-package model;
+package model.core;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -17,22 +17,29 @@ public class History {
 	public void run(Command c) {
 		c.execute();
 		undoStack.push(c);
-		if (undoStack.size() > capacity)
+
+		if (undoStack.size() > capacity) {
 			undoStack.removeLast();
+		}
+
 		redoStack.clear();
 	}
 
 	public void undo() {
-		if (undoStack.isEmpty())
+		if (undoStack.isEmpty()) {
 			return;
+		}
+
 		Command c = undoStack.pop();
 		c.undo();
 		redoStack.push(c);
 	}
 
 	public void redo() {
-		if (redoStack.isEmpty())
+		if (redoStack.isEmpty()) {
 			return;
+		}
+
 		Command c = redoStack.pop();
 		c.execute();
 		undoStack.push(c);

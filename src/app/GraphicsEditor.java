@@ -3,19 +3,22 @@ package app;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Map;
 
 import javax.swing.*;
 
 import command.UpdatePropertyCommand;
-import model.History;
-import model.ShapeStore;
+import model.core.History;
+import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 import ui.ButtonPanel;
 import ui.DrawingCanvas;
 import ui.PropertyEditorPanel;
 
 public class GraphicsEditor extends JFrame {
+
 	private final AppState state = new AppState();
 	private final ShapeStore store = new ShapeStore();
 	private final History history = new History(200);
@@ -37,7 +40,6 @@ public class GraphicsEditor extends JFrame {
 		add(new JScrollPane(canvas), BorderLayout.CENTER);
 		add(propertyPanel, BorderLayout.EAST);
 
-		// Selection change listener via mouse — refresh panel after clicks/drags
 		canvas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -52,6 +54,16 @@ public class GraphicsEditor extends JFrame {
 
 		setSize(1200, 720);
 		setLocationRelativeTo(null);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.out.println("Exiting application...");
+				Runtime.getRuntime().halt(0);
+			}
+		});
 	}
 
 	private void applyPropertiesFromPanel(Map<String, Object> newValues) {
@@ -59,19 +71,15 @@ public class GraphicsEditor extends JFrame {
 		if (sel == null)
 			return;
 
-		// create command.UpdatePropertyCommand per entry (so they are undoable individually)
 		newValues.forEach((k, v) -> {
 			history.run(new UpdatePropertyCommand(sel, k, v));
 		});
+
 		canvas.repaint();
 		refreshPropertyPanel();
 	}
 
 	private void refreshPropertyPanel() {
 		propertyPanel.bindShape(state.getSelection());
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> new GraphicsEditor().setVisible(true));
 	}
 }

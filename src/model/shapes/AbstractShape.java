@@ -7,10 +7,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractShape {
+
 	protected final Map<String, Object> props = new LinkedHashMap<>(); // preserve insertion order
 
 	public AbstractShape() {
-		// Common defaults
 		props.putIfAbsent("x", 0.0);
 		props.putIfAbsent("y", 0.0);
 		props.putIfAbsent("width", 0.0);
@@ -20,7 +20,6 @@ public abstract class AbstractShape {
 		props.putIfAbsent("stroke-width", 2.0);
 		props.putIfAbsent("rotation-angle", 0.0);
 		props.putIfAbsent("name", getDefaultName());
-		// any subclass can add more in constructor
 	}
 
 	protected abstract String getDefaultName();
@@ -35,7 +34,6 @@ public abstract class AbstractShape {
 		return props;
 	}
 
-	// Helpers: typed setters/getters with safe conversion
 	public double getDouble(String key) {
 		Object v = props.get(key);
 		if (v instanceof Number)
@@ -44,6 +42,7 @@ public abstract class AbstractShape {
 			try {
 				return Double.parseDouble(s.trim());
 			} catch (Exception ignore) {
+
 			}
 		}
 		return 0.0;
@@ -57,6 +56,7 @@ public abstract class AbstractShape {
 			try {
 				return Integer.parseInt(s.trim());
 			} catch (Exception ignore) {
+
 			}
 		}
 		return 0;
@@ -70,8 +70,8 @@ public abstract class AbstractShape {
 			try {
 				return Color.decode(s.trim());
 			} catch (Exception ignore) {
+
 			}
-			// also support #RRGGBB
 		}
 		return Color.GRAY;
 	}

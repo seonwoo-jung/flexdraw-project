@@ -1,9 +1,10 @@
 package command;
 
-import model.ShapeStore;
+import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 
 public class AddShapeCommand implements Command {
+
 	private final ShapeStore store;
 	private final AbstractShape shape;
 

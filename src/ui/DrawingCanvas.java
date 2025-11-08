@@ -18,19 +18,20 @@ import app.Tool;
 import command.AddShapeCommand;
 import command.RemoveShapeCommand;
 import command.ReorderCommand;
-import model.History;
-import model.ShapeStore;
+import model.core.History;
+import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 import model.shapes.EllipseShape;
 import model.shapes.LineShape;
 import model.shapes.RectangleShape;
 
 public class DrawingCanvas extends JPanel {
+
 	private final ShapeStore store;
 	private final AppState state;
 	private final History history;
 	private Point2D startPt;
-	private AbstractShape drafting; // temp shape during drag
+	private AbstractShape drafting;
 
 	public DrawingCanvas(ShapeStore store, AppState state, History history) {
 		this.store = store;
@@ -91,7 +92,6 @@ public class DrawingCanvas extends JPanel {
 		addMouseListener(ma);
 		addMouseMotionListener(ma);
 
-		// Keyboard shortcuts
 		setFocusable(true);
 		getInputMap(WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "delete");
 		getActionMap().put("delete", new AbstractAction() {
@@ -147,16 +147,17 @@ public class DrawingCanvas extends JPanel {
 	}
 
 	private void handleSelect(Point p) {
-		// hit test in reverse drawing order
 		List<AbstractShape> list = new ArrayList<>(store.all());
 		Collections.reverse(list);
 		AbstractShape hit = null;
+
 		for (AbstractShape s : list) {
 			if (s.contains(p)) {
 				hit = s;
 				break;
 			}
 		}
+
 		state.setSelection(hit);
 	}
 
@@ -186,12 +187,15 @@ public class DrawingCanvas extends JPanel {
 	}
 
 	private void finalizeDrafting(Point end) {
-		if (drafting == null)
+		if (drafting == null) {
 			return;
-		// Skip zero-size
+		}
+
 		Shape geom = drafting.getGeometry();
-		if (geom.getBounds2D().getWidth() < 1 && geom.getBounds2D().getHeight() < 1)
+		if (geom.getBounds2D().getWidth() < 1 && geom.getBounds2D().getHeight() < 1) {
 			return;
+		}
+
 		history.run(new AddShapeCommand(store, drafting));
 		state.setSelection(drafting);
 	}
@@ -206,9 +210,11 @@ public class DrawingCanvas extends JPanel {
 			boolean sel = (s == state.getSelection());
 			s.draw(g2, sel);
 		}
-		// draw drafting on top
-		if (drafting != null)
+
+		if (drafting != null) {
 			drafting.draw(g2, true);
+		}
+
 		g2.dispose();
 	}
 }

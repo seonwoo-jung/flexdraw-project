@@ -6,10 +6,10 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 public class LineShape extends AbstractShape {
+
     public LineShape() {
         props.put("x2", 0.0);
         props.put("y2", 0.0);
-        // width/height unused; keep for uniformity
         props.put("name", "Line");
     }
 
