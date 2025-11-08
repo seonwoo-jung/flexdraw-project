@@ -1,6 +1,10 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import model.shapes.AbstractShape;
 
 public class ShapeStore {
 	private final java.util.List<AbstractShape> shapes = new ArrayList<>();
@@ -42,5 +46,4 @@ public class ShapeStore {
 			shapes.add(0, s);
 		}
 	}
-
 }

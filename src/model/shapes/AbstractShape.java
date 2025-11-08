@@ -1,10 +1,12 @@
+package model.shapes;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-abstract class AbstractShape {
+public abstract class AbstractShape {
 	protected final Map<String, Object> props = new LinkedHashMap<>(); // preserve insertion order
 
 	public AbstractShape() {

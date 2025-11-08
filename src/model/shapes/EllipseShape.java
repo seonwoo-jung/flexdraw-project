@@ -1,9 +1,11 @@
+package model.shapes;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-class EllipseShape extends AbstractShape {
+public class EllipseShape extends AbstractShape {
     @Override protected String getDefaultName() { return "Ellipse"; }
 
     @Override

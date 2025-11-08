@@ -1,9 +1,19 @@
+package app;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
 
 import javax.swing.*;
+
+import command.UpdatePropertyCommand;
+import model.History;
+import model.ShapeStore;
+import model.shapes.AbstractShape;
+import ui.ButtonPanel;
+import ui.DrawingCanvas;
+import ui.PropertyEditorPanel;
 
 public class GraphicsEditor extends JFrame {
 	private final AppState state = new AppState();
@@ -49,7 +59,7 @@ public class GraphicsEditor extends JFrame {
 		if (sel == null)
 			return;
 
-		// create UpdatePropertyCommand per entry (so they are undoable individually)
+		// create command.UpdatePropertyCommand per entry (so they are undoable individually)
 		newValues.forEach((k, v) -> {
 			history.run(new UpdatePropertyCommand(sel, k, v));
 		});

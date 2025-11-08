@@ -1,3 +1,5 @@
+package ui;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -11,7 +13,19 @@ import java.util.List;
 
 import javax.swing.*;
 
-class DrawingCanvas extends JPanel {
+import app.AppState;
+import app.Tool;
+import command.AddShapeCommand;
+import command.RemoveShapeCommand;
+import command.ReorderCommand;
+import model.History;
+import model.ShapeStore;
+import model.shapes.AbstractShape;
+import model.shapes.EllipseShape;
+import model.shapes.LineShape;
+import model.shapes.RectangleShape;
+
+public class DrawingCanvas extends JPanel {
 	private final ShapeStore store;
 	private final AppState state;
 	private final History history;

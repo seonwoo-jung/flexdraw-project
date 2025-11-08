@@ -1,9 +1,11 @@
+package model.shapes;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-class LineShape extends AbstractShape {
+public class LineShape extends AbstractShape {
     public LineShape() {
         props.put("x2", 0.0);
         props.put("y2", 0.0);

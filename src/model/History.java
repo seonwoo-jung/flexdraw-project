@@ -1,5 +1,9 @@
+package model;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
+
+import command.Command;
 
 public class History {
 	private final Deque<Command> undoStack = new ArrayDeque<>();

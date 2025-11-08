@@ -1,7 +1,11 @@
+package app;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.*;
+
+import model.shapes.AbstractShape;
 
 public class AppState {
 	private Tool currentTool = Tool.SELECT;

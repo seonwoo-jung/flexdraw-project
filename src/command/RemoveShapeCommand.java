@@ -1,5 +1,9 @@
+package command;
 
-class RemoveShapeCommand implements Command {
+import model.ShapeStore;
+import model.shapes.AbstractShape;
+
+public class RemoveShapeCommand implements Command {
 	private final ShapeStore store;
 	private final AbstractShape shape;
 	private int oldIndex = -1;
