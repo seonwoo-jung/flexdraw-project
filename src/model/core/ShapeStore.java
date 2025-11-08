@@ -22,10 +22,6 @@ public class ShapeStore {
 		shapes.remove(s);
 	}
 
-	public boolean contains(AbstractShape s) {
-		return shapes.contains(s);
-	}
-
 	public int indexOf(AbstractShape s) {
 		return shapes.indexOf(s);
 	}
@@ -46,5 +42,9 @@ public class ShapeStore {
 			shapes.remove(s);
 			shapes.add(0, s);
 		}
+	}
+
+	public boolean contains(AbstractShape s) {
+		return shapes.contains(s);
 	}
 }

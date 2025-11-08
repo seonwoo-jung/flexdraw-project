@@ -6,6 +6,16 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 public class EllipseShape extends AbstractShape {
+
+	private void drawSelection(Graphics2D g2, Shape s) {
+		Stroke old = g2.getStroke();
+		float[] dash = {4f, 4f};
+		g2.setStroke(new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, dash, 0f));
+		g2.setColor(new Color(0, 120, 215));
+		g2.draw(s.getBounds2D());
+		g2.setStroke(old);
+	}
+
 	@Override
 	protected String getDefaultName() {
 		return "Ellipse";
@@ -26,15 +36,6 @@ public class EllipseShape extends AbstractShape {
 		}
 
 		g2.dispose();
-	}
-
-	private void drawSelection(Graphics2D g2, Shape s) {
-		Stroke old = g2.getStroke();
-		float[] dash = {4f, 4f};
-		g2.setStroke(new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, dash, 0f));
-		g2.setColor(new Color(0, 120, 215));
-		g2.draw(s.getBounds2D());
-		g2.setStroke(old);
 	}
 
 	@Override

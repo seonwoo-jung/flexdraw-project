@@ -28,7 +28,7 @@ public abstract class AbstractShape {
 
 	public abstract boolean contains(Point2D p);
 
-	public abstract Shape getGeometry(); // used for hit test / transforms
+	public abstract Shape getGeometry();
 
 	public Map<String, Object> getProps() {
 		return props;

@@ -6,6 +6,7 @@ import java.util.Deque;
 import command.Command;
 
 public class History {
+
 	private final Deque<Command> undoStack = new ArrayDeque<>();
 	private final Deque<Command> redoStack = new ArrayDeque<>();
 	private final int capacity;

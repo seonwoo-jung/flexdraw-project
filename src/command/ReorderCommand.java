@@ -4,6 +4,7 @@ import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 
 public class ReorderCommand implements Command {
+
 	private final ShapeStore store;
 	private final AbstractShape shape;
 	private final boolean toFront;
