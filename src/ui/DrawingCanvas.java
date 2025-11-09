@@ -22,6 +22,7 @@ import model.core.History;
 import model.core.ShapeStore;
 import model.shapes.AbstractShape;
 import model.shapes.EllipseShape;
+import model.shapes.FreeDrawShape;
 import model.shapes.LineShape;
 import model.shapes.RectangleShape;
 
@@ -44,12 +45,16 @@ public class DrawingCanvas extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				requestFocusInWindow();
+
 				if (state.getTool() == Tool.SELECT) {
 					handleSelect(e.getPoint());
 				} else {
 					startPt = e.getPoint();
 					drafting = createShapeForTool(state.getTool());
-					if (drafting instanceof LineShape ln) {
+
+					if (state.getTool() == Tool.PEN && drafting instanceof FreeDrawShape pen) {
+						pen.addPoint(startPt);
+					} else if (drafting instanceof LineShape ln) {
 						ln.setProp("x", startPt.getX());
 						ln.setProp("y", startPt.getY());
 						ln.setProp("x2", startPt.getX());
@@ -67,7 +72,11 @@ public class DrawingCanvas extends JPanel {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (drafting != null) {
-					updateDrafting(e.getPoint());
+					if (state.getTool() == Tool.PEN && drafting instanceof FreeDrawShape pen) {
+						pen.addPoint(e.getPoint());
+					} else {
+						updateDrafting(e.getPoint());
+					}
 					repaint();
 				}
 			}
@@ -75,11 +84,18 @@ public class DrawingCanvas extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (drafting != null) {
-					finalizeDrafting(e.getPoint());
+					if (state.getTool() == Tool.PEN && drafting instanceof FreeDrawShape pen) {
+						pen.addPoint(e.getPoint());
+						history.run(new AddShapeCommand(store, pen));
+						state.setSelection(pen);
+					} else {
+						finalizeDrafting(e.getPoint());
+					}
+
 					drafting = null;
 					startPt = null;
+					repaint();
 				}
-				repaint();
 			}
 
 			@Override
@@ -166,6 +182,7 @@ public class DrawingCanvas extends JPanel {
 			case RECT -> new RectangleShape();
 			case ELLIPSE -> new EllipseShape();
 			case LINE -> new LineShape();
+			case PEN -> new FreeDrawShape();
 			default -> null;
 		};
 	}

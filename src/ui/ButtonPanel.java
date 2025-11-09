@@ -26,6 +26,7 @@ public class ButtonPanel extends JPanel {
 		JButton rectBtn = new JButton("Rect");
 		JButton ellBtn = new JButton("Ellipse");
 		JButton lineBtn = new JButton("Line");
+		JButton penBtn = new JButton("Pen");
 
 		// --- Command buttons ---
 		JButton undoBtn = new JButton("Undo");
@@ -39,6 +40,7 @@ public class ButtonPanel extends JPanel {
 		btns.put("tool-rect", rectBtn);
 		btns.put("tool-ellipse", ellBtn);
 		btns.put("tool-line", lineBtn);
+		btns.put("tool-pen", penBtn);
 		btns.put("cmd-undo", undoBtn);
 		btns.put("cmd-redo", redoBtn);
 		btns.put("cmd-delete", delBtn);
@@ -50,6 +52,7 @@ public class ButtonPanel extends JPanel {
 		rectBtn.addActionListener(e -> state.setTool(Tool.RECT));
 		ellBtn.addActionListener(e -> state.setTool(Tool.ELLIPSE));
 		lineBtn.addActionListener(e -> state.setTool(Tool.LINE));
+		penBtn.addActionListener(e -> state.setTool(Tool.PEN));
 
 		// --- Undo / Redo actions ---
 		undoBtn.addActionListener(e -> {
@@ -98,5 +101,6 @@ public class ButtonPanel extends JPanel {
 		add(delBtn);
 		add(frontBtn);
 		add(backBtn);
+		add(penBtn);
 	}
 }

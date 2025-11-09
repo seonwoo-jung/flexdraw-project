@@ -1,5 +1,9 @@
 package app;
 
 public enum Tool {
-	SELECT, RECT, ELLIPSE, LINE
+	SELECT,
+	RECT,
+	ELLIPSE,
+	LINE,
+	PEN
 }

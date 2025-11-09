@@ -18,6 +18,11 @@ public class PropertyEditorPanel extends JPanel {
 	private final List<FieldRow> rows = new ArrayList<>();
 	private final JButton updateBtn = new JButton("Update");
 
+	private static final Map<String, List<String>> HIDDEN_KEYS = Map.of(
+		"FreeDrawShape", List.of("x", "y", "width", "height", "rotation-angle", "fill-color"
+		)
+	);
+
 	private final Consumer<Map<String, Object>> onApply;
 
 	public PropertyEditorPanel(Consumer<Map<String, Object>> onApply) {
@@ -53,6 +58,10 @@ public class PropertyEditorPanel extends JPanel {
 				String k = e.getKey();
 				Object v = e.getValue();
 				Class<?> type = (v == null) ? String.class : v.getClass();
+
+				if (HIDDEN_KEYS.getOrDefault(boundShape.getClass().getSimpleName(), List.of()).contains(k)) {
+					continue;
+				}
 
 				gc.gridx = 0;
 				inner.add(new JLabel(k), gc);
